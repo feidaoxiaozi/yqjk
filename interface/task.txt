@@ -1,0 +1,9 @@
+        public abstract void saveTaskxx(Task task);
+	
+	public abstract void delTaskxx(Task task);
+	
+	public abstract Task findTaskxxById(int taskId);
+	
+	public abstract List<Task> findAllTaskxx();
+	
+	public abstract void updateTaskxx(Task task);

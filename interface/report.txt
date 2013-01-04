@@ -1,0 +1,9 @@
+        public abstract void saveReportxx(Report report);
+	
+	public abstract void delReportxx(Report report);
+	
+	public abstract List<Report> findAllReportxx();
+
+        public abstract Report findReportxxById(int reportId);
+	
+	public abstract void updateReportxx(Report report);
