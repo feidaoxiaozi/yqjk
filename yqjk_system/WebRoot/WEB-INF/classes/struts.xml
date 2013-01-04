@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+
+	<package name="yqjkxx" extends="struts-default">
+		<action name="addYqjk" class="SaveYqjkxxAction">
+			
+			<result name="success" type="redirect">
+				ListYqjk.action
+			</result>
+			<result name="input">/save.jsp</result>
+		</action>
+
+		<action name="ListYqjk" class="ListYqjkAction">
+			<result name="success">/list.jsp</result>
+		</action>
+
+		<action name="deleteYqjkxx" class="DeleteYqjkxxAction">
+			<result name="success" type="redirect">
+				ListYqjk.action
+			</result>
+		</action>
+
+		<action name="updatePYqjkxx" class="UpdatePYqjkxxAction">			
+			<result name="success">/taskupdate.jsp</result>
+		</action>
+
+		<action name="updateYqjkxx" class="UpdateYqjkxxAction">
+			<result name="success" type="redirect">
+				ListYqjk.action
+			</result>
+			<result name="input">/taskupdate.jsp</result>
+		</action>
+	</package>
+    <package name="report" extends="struts-default">
+       <action name="findReportById" class="FindReportAction">
+			<result name="success" type="redirect">
+				listReport.action
+			</result>
+		</action>
+		<action name="loadReport" class="LoadReportDataAction">
+			<result name="success" type="redirect">
+				listReport.action
+			</result>
+		</action>
+		 
+		<action name="listReport" class="ListReportAction">
+			<result name="success">/listreport.jsp</result>
+		</action>
+		<action name="download" class="net.dbet.yqjk.action.DownloadAction" method="getDownLoadStream">
+			<result name="success" type="stream">
+				<param name="contentType">
+					application/vnd.ms-powerpoint
+				</param>
+				<param name="contentDisposition">
+					filename="listreport.jsp"
+				</param>
+				<param name="inputName">downLoadFile</param>
+			</result>
+		</action>
+		<action name="generateExcel" class="GenerateExcelAction">
+			<result name="success" type="stream">
+				<param name="contentType">
+					application/vnd.ms-excel
+				</param>
+
+				<param name="contentDisposition">
+					filename="AllReports.xls"
+				</param>
+
+				<param name="inputName">downloadFile</param>
+
+			</result>
+		</action>
+				
+    </package>
+    <package name="user" extends="struts-default">
+         <action name="addUser" class="SaveUserxxAction">
+			<result name="success">/result.jsp</result>
+			<result name="input">/register.jsp</result>
+		</action>
+		<action name="listUser" class="ListUserxxAction">
+			<result name="success">/listuser.jsp</result>
+		</action>
+		
+		<action name="updatePUser" class="UpdatePUserxxAction">			
+			<result name="success">/userupdate.jsp</result>
+		</action>
+    
+		<action name="updateUser" class="UpdateUserxxAction">
+			<result name="success" type="redirect">
+				listUser.action
+			</result>
+			<result name="input">/userupdate.jsp</result>
+		</action>
+		<action name="deleteUser" class="DeleteUserxxAction">
+			<result name="success" type="redirect">
+				listUser.action
+			</result>
+		</action>
+		<action name="verifyUser" class="LoginUserAction">
+			 <result name="success" type="redirect">
+				ListYqjk.action
+			</result>			
+		    <result name="input">/login.jsp</result>
+		</action>
+    </package>
+</struts>

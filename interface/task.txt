@@ -1,9 +1,9 @@
-        public abstract void saveTaskxx(Task task);
+       public abstract void saveYqjk(Yqjkxx yqjkxx);
 	
-	public abstract void delTaskxx(Task task);
+	public abstract void delYqjkxx(Yqjkxx yqjkxx);
 	
-	public abstract Task findTaskxxById(int taskId);
+	public abstract Yqjkxx findById(int roleId);
 	
-	public abstract List<Task> findAllTaskxx();
+	public abstract List<Yqjkxx> findAllYqjkxx();
 	
-	public abstract void updateTaskxx(Task task);
+	public abstract void updateYqjkxx(Yqjkxx Yqjkxx);

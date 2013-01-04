@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver">
+		</property>
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/yqjk">
+		</property>
+		<property name="username" value="root"></property>
+		<property name="password" value="123456"></property>
+		<property name="maxActive" value="100"></property>
+		<property name="maxIdle" value="30"></property>
+		<property name="maxWait" value="500"></property>
+		<property name="defaultAutoCommit" value="true"></property>
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>net/dbet/yqjk/Yqjkxx.hbm.xml</value>
+				<value>net/dbet/yqjk/Report.hbm.xml</value>
+				<value>net/dbet/yqjk/User.hbm.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="yqjkDao" class="net.dbet.yqjkdao.impl.YqjkDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="yqjkService"
+		class="net.dbet.service.impl.YqjkServiceImpl">
+		<property name="yqjkDao" ref="yqjkDao"></property>
+		
+	</bean>
+
+	<bean id="SaveYqjkxxAction"
+		class="net.dbet.yqjk.action.SaveYqjkAction" scope="prototype">
+		<property name="service" ref="yqjkService"></property>
+	</bean>
+
+	<bean id="ListYqjkAction"
+		class="net.dbet.yqjk.action.ListYqjkAction" scope="prototype">
+		<property name="service" ref="yqjkService"></property>
+	</bean>
+
+	<bean id="DeleteYqjkxxAction"
+		class="net.dbet.yqjk.action.DeleteYqjkAction" scope="prototype">
+		<property name="service" ref="yqjkService"></property>
+	</bean>
+
+	<bean id="UpdatePYqjkxxAction"
+		class="net.dbet.yqjk.action.UpdatePYqjkxxAction" scope="prototype">
+		<property name="service" ref="yqjkService"></property>
+	</bean>
+
+	<bean id="UpdateYqjkxxAction"
+		class="net.dbet.yqjk.action.UpdateYqjkxxAction" scope="prototype">
+		<property name="service" ref="yqjkService"></property>
+	</bean>
+
+    <bean id="reportDao" class="net.dbet.yqjkdao.impl.ReportDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="reportService" class="net.dbet.service.impl.ReportServiceImpl">
+		<property name="reportDao" ref="reportDao"></property>		
+	</bean>
+	<bean id="FindReportAction"
+		class="net.dbet.yqjk.action.FindReportxxByRoleIdAction" scope="prototype">
+		<property name="service" ref="yqjkService"></property>
+	</bean>
+	<bean id="ListReportAction"
+		class="net.dbet.yqjk.action.ListReportAction" scope="prototype">
+		<property name="service" ref="reportService"></property>
+	</bean>
+	<bean id="LoadReportDataAction"
+		class="net.dbet.yqjk.action.LoadReportAction" scope="prototype">
+		<property name="service" ref="reportService"></property>
+	</bean>
+	<bean id="GenerateExcelAction"
+		class="net.dbet.yqjk.action.GenerateReportExcelAction" scope="singleton">
+		<property name="service" ref="reportService"></property>
+	</bean>
+	
+	<bean id="userDao" class="net.dbet.yqjkdao.impl.UserDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="userService" class="net.dbet.service.impl.UserServiceImpl">
+		<property name="userDao" ref="userDao"></property>		
+	</bean>
+	<bean id="SaveUserxxAction"
+		class="net.dbet.yqjk.action.SaveUserAction" scope="prototype">
+		<property name="service" ref="userService"></property>
+	</bean>
+	<bean id="ListUserxxAction"
+		class="net.dbet.yqjk.action.ListUserAction" scope="prototype">
+		<property name="service" ref="userService"></property>
+	</bean>
+	<bean id="UpdatePUserxxAction"
+		class="net.dbet.yqjk.action.UpdatePUserAction" scope="prototype">
+		<property name="service" ref="userService"></property>
+	</bean>
+	<bean id="UpdateUserxxAction"
+		class="net.dbet.yqjk.action.UpdateUserAction" scope="prototype">
+		<property name="service" ref="userService"></property>
+	</bean>
+	<bean id="DeleteUserxxAction"
+		class="net.dbet.yqjk.action.DeleteUserAction" scope="prototype">
+		<property name="service" ref="userService"></property>
+	</bean>
+	<bean id="LoginUserAction"
+		class="net.dbet.yqjk.action.UserLoginAction" scope="prototype">
+		<property name="service" ref="userService"></property>
+	</bean>
+</beans>

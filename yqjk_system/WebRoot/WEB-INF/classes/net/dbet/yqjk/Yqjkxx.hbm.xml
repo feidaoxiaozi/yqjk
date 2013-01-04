@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="net.dbet.yqjk">
+
+	<class name="net.dbet.yqjk.Yqjkxx" table="yqjk_task">
+
+		
+		<id name="roleId" column="roleId">
+			<generator class="assigned" />
+		</id>
+        <property name="roleName" column="roleName"/>
+		<property name="newsResource" column="newsResource"/>		
+		<property name="findStyle" column="findStyle"/>
+		<property name="collectDate" column="collectDate"/>
+		<property name="collectCondition" column="collectCondition"/>		
+		<property name="contentMate" column="contentMate"/>
+		<property name="Site_collection" column="Site_collection"/>		
+		<property name="roleState" column="roleState"/>
+		 
+		<set name="report" table="yqjk_report" order-by="reportId|asc">
+              <key column="roleId"/>
+              <one-to-many class="net.dbet.yqjk.Report"/>
+       </set> 	
+     	
+	</class>
+
+</hibernate-mapping>
