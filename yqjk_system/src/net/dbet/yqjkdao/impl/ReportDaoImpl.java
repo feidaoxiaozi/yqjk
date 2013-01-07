@@ -3,22 +3,23 @@ package net.dbet.yqjkdao.impl;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
+import net.dbet.util.DBConn;
 import net.dbet.util.GetNewsByKeys;
 import net.dbet.yqjk.Report;
 import net.dbet.yqjk.Yqjkxx;
 import net.dbet.yqjkdao.ReportDao;
 
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+
 import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.ResultSet;
+import com.mysql.jdbc.Statement;
 
 public class ReportDaoImpl extends HibernateDaoSupport implements ReportDao {
 	@SuppressWarnings("unchecked")
@@ -27,53 +28,50 @@ public class ReportDaoImpl extends HibernateDaoSupport implements ReportDao {
 		return (List<Report>)this.getHibernateTemplate().find(hql);
 	}
 	
-	public Connection getConnection(){
-		System.out.println("connection是否已获得");
-		Connection con = null;
-			try{
-				Class.forName("com.mysql.jdbc.Driver");
-				String url = "jdbc:mysql://localhost:3306/yqjk";
-				con = (Connection) DriverManager.getConnection(url, "root", "123456");
-			}catch (Exception e) {
-				e.printStackTrace();
-			}
-			return con;
-		}
-		public void getFile(){
-			System.out.println("*****getFile()已执行");
-		  loadData("D:"+File.separator+"data.txt");
+		public void getFile(){		
+		  loadData("D:"+File.separator+"aaa.txt");
 		}
       //数据记录导入
 		public boolean loadData(String file){
-			System.out.println("####loadData()已执行");
-			Connection con = getConnection();
+			DBConn db = new DBConn();
+			Connection con  = db.getConn();
 			try {
 				PreparedStatement ps = null,ps1=null,ps2=null;
 				ResultSet rs = null;
 				BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(file))));
 				String line ="";
-				String sql = "insert into yqjk_report values(?,?,?,?,?,?,?,?,?,?)";
+                String sql ="insert into yqjk_report values(?,?,?,?)";
 				try {
 					con.setAutoCommit(false);
-					ps = (PreparedStatement)con.prepareStatement(sql);
-					int n = 0;
-					try {
-						//while((line=br.readLine())!=null){
-						String type = line.trim();	
-						ps.setString(1, type);
-						
-						ps.addBatch();
-						n++;
-						if(n>1000){
+					ps = (PreparedStatement)con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+							
+					int n=0,index=1 ;
+					try {						
+						while ((line = br.readLine()) != null) {								
+						//if(index%2==1){	
+						int reportId=index++;	
+						String title=line.substring(1, line.indexOf("~"));						
+						String url=line.substring(line.indexOf("~")+1, line.indexOf("#"));
+						String resource=line.substring(line.indexOf("#")+1, line.indexOf("$"));
+													
+						    ps.setInt(1,reportId);
+							ps.setString(2, title);
+							ps.setString(3, url);
+							ps.setString(4, resource);
+							ps.addBatch();
+							n++;
+							if(n>1000){
+								ps.executeBatch();
+								n=0;
+							}				                       
 							ps.executeBatch();
-							n=0;
+							//ps.executeUpdate();
+							con.commit();
 						}
 						//}
-						ps.executeBatch();
-						con.commit();
-					//} catch (IOException e) {
+					}catch (Exception e) {
 						// TODO Auto-generated catch block
-						//e.printStackTrace();
+						e.printStackTrace();
 					}finally{
 						if(null!=rs){
 							rs.close();
@@ -92,9 +90,9 @@ public class ReportDaoImpl extends HibernateDaoSupport implements ReportDao {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			} catch (FileNotFoundException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				e.printStackTrace();	
 			}
 			return true;
 		}
@@ -108,7 +106,8 @@ public class ReportDaoImpl extends HibernateDaoSupport implements ReportDao {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}	
+			}
+			
 			getFile();
 	}
 	

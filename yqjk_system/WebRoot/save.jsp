@@ -53,7 +53,7 @@ body {
   <tr>
     <td width="183" height="30" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">信息来源</span></div></td>
     <td height="30" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE19">
-   <s:checkboxlist name="yqjkxx.newsResource" list="{'新闻','论坛','博客','贴吧','网页'}" value="{'新闻','博客'}"  />
+   <s:checkboxlist name="yqjkxx.newsResource" list="{'新闻','论坛','微博','贴吧','网页'}" value="{'新闻','微博'}"  />
    </span></div></td>
     <td rowspan="2" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE19"></span></div>
   <div align="center"><span class="STYLE19">&nbsp;</span></div>

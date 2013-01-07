@@ -94,9 +94,9 @@ public class ReportServiceImpl implements ReportService {
 		for (int i = 0; i < list.size(); i++) {
 			Report report= list.get(i);
 			row = sheet.createRow(i + 1);
-			cell = row.createCell((short) 0);
-			cell.setEncoding(HSSFCell.ENCODING_UTF_16);
-			cell.setCellValue(report.getType());
+//			cell = row.createCell((short) 0);
+//			cell.setEncoding(HSSFCell.ENCODING_UTF_16);
+//			cell.setCellValue(report.getType());
 
 			cell = row.createCell((short) 1);
 			cell.setEncoding(HSSFCell.ENCODING_UTF_16);
@@ -106,37 +106,37 @@ public class ReportServiceImpl implements ReportService {
 			cell.setEncoding(HSSFCell.ENCODING_UTF_16);
 			cell.setCellValue(report.getResource());
 
-			cell = row.createCell((short) 3);
-			cell.setEncoding(HSSFCell.ENCODING_UTF_16);
-			cell.setCellValue(report.getPublished_time());
-			
-			cell = row.createCell((short) 4);
-			cell.setEncoding(HSSFCell.ENCODING_UTF_16);
-			cell.setCellValue(report.getReprinted_volume());
+//			cell = row.createCell((short) 3);
+//			cell.setEncoding(HSSFCell.ENCODING_UTF_16);
+//			cell.setCellValue(report.getPublished_time());
+//			
+//			cell = row.createCell((short) 4);
+//			cell.setEncoding(HSSFCell.ENCODING_UTF_16);
+//			cell.setCellValue(report.getReprinted_volume());
 
-			cell = row.createCell((short) 5);
-			cell.setEncoding(HSSFCell.ENCODING_UTF_16);
-			cell.setCellValue(report.getClick_number());
-
-			cell = row.createCell((short) 6);
-			cell.setEncoding(HSSFCell.ENCODING_UTF_16);
-			cell.setCellValue(report.getBack_number());
+//			cell = row.createCell((short) 5);
+//			cell.setEncoding(HSSFCell.ENCODING_UTF_16);
+//			cell.setCellValue(report.getClick_number());
+//
+//			cell = row.createCell((short) 6);
+//			cell.setEncoding(HSSFCell.ENCODING_UTF_16);
+//			cell.setCellValue(report.getBack_number());
 
 			cell = row.createCell((short) 7);
 			cell.setEncoding(HSSFCell.ENCODING_UTF_16);
 			cell.setCellValue(report.getUrl());
 			
-			cell = row.createCell((short) 8);
-			cell.setEncoding(HSSFCell.ENCODING_UTF_16);
-			cell.setCellValue(report.getAuthor());
+//			cell = row.createCell((short) 8);
+//			cell.setEncoding(HSSFCell.ENCODING_UTF_16);
+//			cell.setCellValue(report.getAuthor());
 
-			cell = row.createCell((short) 9);
-			cell.setEncoding(HSSFCell.ENCODING_UTF_16);
-			cell.setCellValue(report.getSeach_time());
+//			cell = row.createCell((short) 9);
+//			cell.setEncoding(HSSFCell.ENCODING_UTF_16);
+//			cell.setCellValue(report.getSeach_time());
 
-			cell = row.createCell((short) 10);
-			cell.setEncoding(HSSFCell.ENCODING_UTF_16);
-			cell.setCellValue(report.getEngineName());
+//			cell = row.createCell((short) 10);
+//			cell.setEncoding(HSSFCell.ENCODING_UTF_16);
+//			cell.setCellValue(report.getEngineName());
 						
 		}
 		File file = new File("report.xls");

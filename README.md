@@ -5,5 +5,10 @@
 
     2.环境搭建
     本系统所用的开发环境有MyEclipse6.5+jdk1.6+tomcat6.0+mySql5.0.
+         a. 首先安装jdk1.6,安装完jdk时，要配置环境变量，在系统变量中找到path路径，将jdk的bin路径拷贝进去；新建一个JAVA_HOME的文件，将bin之前的路径拷贝进去，在DOS里输入
+    javac测试jdk是否安装成功。
+         b. 安装Myeclipse6.5或者其他版本。
+         c. 安装tomcat6.0,安装完后在在系统环境变量中新建一个CATALINA_HOME的文件，将tomcat bin之前的路径拷贝进去。接着在MyEclipse中配置tomcat服务器，找到config server引进    本地安装的tomcat路径，并配置本地安装的jdk。
+         d. 安装mysql5.0，安装时注意选择字符编码为utf-8即可。
     3.数据库设计
     本项目涉及到3张数据表，分别是yqjk_report.sql，yqjk_task.sql和yqjk_user.sql，其中前两张表有主外键关联关系，yqjk_report表中的主键reportId作为yqjk_task表的外键，以保证每次点击一个任务时都能查看到与之相关的新闻统计信息。

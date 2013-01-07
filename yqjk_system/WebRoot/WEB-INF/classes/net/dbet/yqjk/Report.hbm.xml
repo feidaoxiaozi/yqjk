@@ -10,18 +10,23 @@
 		<id name="reportId" column="reportId">
 			<generator class="assigned" />
 		</id>
-        <property name="type" column="type"/>
-		<property name="title" column="title"/>		
+       
+		<property name="title" column="title"/>	
+		<property name="url" column="url"/>	
 		<property name="resource" column="resource"/>
-		<property name="published_time" column="published_time"/>
+		<!-- 
+		<property name="published_time" column="published_time"/>		
+		<property name="seach_time" column="seach_time"/>
+		 
 		<property name="reprinted_volume" column="reprinted_volume"/>		
 		<property name="click_number" column="click_number"/>
 		<property name="back_number" column="back_number"/>		
-		<property name="url" column="url"/>
+		 <property name="type" column="type"/>
 		<property name="author" column="author"/>		
-		<property name="seach_time" column="seach_time"/>
+		
 		<property name="engineName" column="engineName"/>		
 		<property name="roleId" column="roleId"/>
+		-->
 	</class>
 
 </hibernate-mapping>

@@ -35,7 +35,7 @@ public class ListReportAction extends ActionSupport {
 		
     Map request = (Map) ActionContext.getContext().get("request");
 						
-		request.put("set", service.findAllReportxx());
+		request.put("list", service.findAllReportxx());
         
 		return SUCCESS;
 	}
