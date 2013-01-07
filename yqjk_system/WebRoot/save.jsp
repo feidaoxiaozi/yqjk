@@ -45,7 +45,7 @@ body {
       </tr>
   <tr>
     <td width="183" height="30" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">任务名称</span></div></td>
-     <td height="30" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE19">
+     <td height="30" bgcolor="#ff8080" class="STYLE6"><div align="center"><span class="STYLE19">
      <s:textfield name="yqjkxx.roleName"/>
     </span></div></td>
     <td height="30" bgcolor="d3eaef" class="STYLE6"><div align="left"><span class="STYLE19"><font color="#FF0000">*</font> &nbsp;&nbsp; 如：拆迁事件</span></div></td>
