@@ -35,6 +35,7 @@
 			</result>
 			<result name="input">/taskupdate.jsp</result>
 		</action>
+		
 	</package>
     <package name="report" extends="struts-default">
        <action name="findReportById" class="FindReportAction">

@@ -27,10 +27,8 @@ public class ListYqjkAction extends ActionSupport {
 		
 		Map request = (Map) ActionContext.getContext().get("request");
 		
-		System.out.println("request="+request);
-		
 		request.put("list", service.findAllYqjkxx());
-        
+		
 		return SUCCESS;
 	}
 

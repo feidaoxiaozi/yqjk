@@ -48,7 +48,6 @@
 		<property name="yqjkDao" ref="yqjkDao"></property>
 		
 	</bean>
-
 	<bean id="SaveYqjkxxAction"
 		class="net.dbet.yqjk.action.SaveYqjkAction" scope="prototype">
 		<property name="service" ref="yqjkService"></property>

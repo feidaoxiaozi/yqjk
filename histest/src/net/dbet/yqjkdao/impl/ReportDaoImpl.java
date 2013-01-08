@@ -40,17 +40,18 @@ public class ReportDaoImpl extends HibernateDaoSupport implements ReportDao {
 				ResultSet rs = null;
 				BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(file))));
 				String line ="";
-                String sql ="insert into yqjk_report values(?,?,?,?)";
+                String sql ="insert into yqjk_report (reportId,title,url,resource)values(?,?,?,?)";
 				try {
 					con.setAutoCommit(false);
 					ps = (PreparedStatement)con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 							
 					int n=0,index=1 ;
+					
 					try {						
 						while ((line = br.readLine()) != null) {								
 						//if(index%2==1){	
 						int reportId=index++;	
-						String title=line.substring(1, line.indexOf("~"));						
+						String title=line.substring(0, line.indexOf("~"));						
 						String url=line.substring(line.indexOf("~")+1, line.indexOf("#"));
 						String resource=line.substring(line.indexOf("#")+1, line.indexOf("$"));
 													
