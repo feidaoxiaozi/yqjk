@@ -39,13 +39,13 @@ body {
 <center>
 <s:form method="post" action="addYqjk.action" theme="simple">
 
-<table width="60%" border="1" align="left" cellpadding="0" cellspacing="0">
+<table width="80%" border="1" align="left" cellpadding="0" cellspacing="0">
 <tr bgcolor="#353c44">
                 <td height="30" colspan="3" valign="bottom"><div align="left"><img src="images/tb.gif" width="14" height="30" /><span class="STYLE1"><font size="+1">新增任务</font></span></div></td>
       </tr>
   <tr>
     <td width="183" height="30" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">任务名称</span></div></td>
-     <td height="30" bgcolor="#ff8080" class="STYLE6"><div align="center"><span class="STYLE19">
+     <td height="30" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE19">
      <s:textfield name="yqjkxx.roleName"/>
     </span></div></td>
     <td height="30" bgcolor="d3eaef" class="STYLE6"><div align="left"><span class="STYLE19"><font color="#FF0000">*</font> &nbsp;&nbsp; 如：拆迁事件</span></div></td>

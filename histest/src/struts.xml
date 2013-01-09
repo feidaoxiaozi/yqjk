@@ -48,7 +48,9 @@
 				listReport.action
 			</result>
 		</action>
-		 
+		 <action name="monitorReport" class="net.dbet.yqjk.action.MonitorReportAction">
+			<result name="success">D:\Excel</result>
+		</action>
 		<action name="listReport" class="ListReportAction">
 			<result name="success">/listreport.jsp</result>
 		</action>

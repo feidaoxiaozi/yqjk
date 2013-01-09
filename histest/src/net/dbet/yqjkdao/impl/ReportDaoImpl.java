@@ -49,7 +49,7 @@ public class ReportDaoImpl extends HibernateDaoSupport implements ReportDao {
 					
 					try {						
 						while ((line = br.readLine()) != null) {								
-						//if(index%2==1){	
+							
 						int reportId=index++;	
 						String title=line.substring(0, line.indexOf("~"));						
 						String url=line.substring(line.indexOf("~")+1, line.indexOf("#"));
@@ -66,10 +66,10 @@ public class ReportDaoImpl extends HibernateDaoSupport implements ReportDao {
 								n=0;
 							}				                       
 							ps.executeBatch();
-							//ps.executeUpdate();
+							
 							con.commit();
 						}
-						//}
+						
 					}catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

@@ -19,13 +19,11 @@ public class GetNewsByKeys {
 	
 	@SuppressWarnings("unchecked")
 public String getNews() throws IOException {
-		System.out.println("此处飘过");
 		ArrayList<Yqjkxx> allKeyWords = getRoleName();
-		System.out.println("allkeywords="+allKeyWords);
 		String line = "";
 		FileWriter out = new FileWriter(new File("D:"+File.separator+"aaa.txt"));
 		for(Yqjkxx y: allKeyWords){
-			for (int i = 0; i <= 100; i += 20) {
+			for (int i = 0; i <= 1000; i += 20) {
 				URL url = new URL(
 						"http://news.baidu.com/ns?bt=0&et=0&si=&rn=20&tn=news&ie=gb2312&ct=1&word="
 						+URLEncoder.encode(y.getRoleName(), "gb2312")+"&pn="+ i + "&cl=2");
@@ -81,7 +79,6 @@ public String getNews() throws IOException {
      Statement st = null;
 	 ResultSet rs = null;
 	 Connection con = null;
-  	System.out.println("getRoleName()已执行");
   	ArrayList<Yqjkxx> al = new ArrayList<Yqjkxx>();
   	
   	con = db.getConn();
@@ -101,7 +98,6 @@ public String getNews() throws IOException {
 			yqjkxx.setSite_collection(rs.getString(8));
 			yqjkxx.setRoleState(rs.getString(9));
 			al.add(yqjkxx);
-			System.out.println("al="+al);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -109,7 +105,6 @@ public String getNews() throws IOException {
 		}finally {
 			db.close();
 		}
-		System.out.println("getRoleName()已执行"+al.size());
   	return al;
   }
 	  }
