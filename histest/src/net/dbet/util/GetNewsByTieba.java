@@ -9,8 +9,8 @@ import org.jsoup.select.Elements;
 
 public class GetNewsByTieba {
 	public static void main(String[] args) throws IOException {
-		for(int i=0;i<=10;i++){
-		 String url = "http://news.baidu.com/n?cmd=4&class=civilnews&pn="+i+"&sub=0";
+		for(int i=0;i<=1000;i+=50){
+		 String url = "http://tieba.baidu.com/f?ie=utf-8&kw=2013%E6%98%A5%E6%99%9A#/pn=i";
 		 Document doc = Jsoup.connect(url).get();
 		 Elements content = doc.select("div.threadlist_li_right");
 		 for(Element item:content){
