@@ -15,8 +15,6 @@ import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
-
-
 public class ExcelFileUtil {
 	//文件存放目录
 	private static String FILE_DIRECTORY = "d:\\Excel";

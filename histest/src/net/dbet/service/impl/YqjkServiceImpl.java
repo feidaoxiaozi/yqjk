@@ -1,20 +1,12 @@
 package net.dbet.service.impl;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.List;
 import net.dbet.service.YqjkService;
-import net.dbet.util.DBConn;
 import net.dbet.yqjk.Yqjkxx;
 import net.dbet.yqjkdao.YqjkDao;
 
 public class YqjkServiceImpl implements YqjkService {
 
-	DBConn db = new DBConn();
-	Statement st = null;
-	ResultSet rs = null;
-	Connection con = null;
 	private YqjkDao yqjkDao;
 
 	public YqjkDao getYqjkDao() {

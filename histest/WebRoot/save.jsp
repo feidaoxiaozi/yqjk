@@ -53,8 +53,17 @@ body {
   <tr>
     <td width="183" height="30" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">信息来源</span></div></td>
     <td height="30" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE19">
-   <s:checkboxlist name="yqjkxx.newsResource" list="{'新闻','论坛','微博','贴吧','网页'}" value="{'新闻','微博'}"  />
+  <s:iterator value="newslist"></s:iterator>
+   <s:checkboxlist name="yqjkxx.newsResource" list="{'新闻','论坛','微博','贴吧','网页'}">
+   <s:property value="news" /> 
+   <s:property value="bbs" />
+   <s:property value="weibo" />
+   <s:property value="tieba" />
+   <s:property value="netPage" />
+   </s:checkboxlist>
+ 
    </span></div></td>
+
     <td rowspan="2" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE19"></span></div>
   <div align="center"><span class="STYLE19">&nbsp;</span></div>
   </tr>

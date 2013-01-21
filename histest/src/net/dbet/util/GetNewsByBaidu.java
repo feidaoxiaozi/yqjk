@@ -15,7 +15,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import net.dbet.yqjk.Yqjkxx;
 
-public class GetNewsByKeys {
+public class GetNewsByBaidu {
 	
 	@SuppressWarnings("unchecked")
 public String getNews() throws IOException {
@@ -23,10 +23,11 @@ public String getNews() throws IOException {
 		String line = "";
 		FileWriter out = new FileWriter(new File("D:"+File.separator+"aaa.txt"));
 		for(Yqjkxx y: allKeyWords){
-			for (int i = 0; i <= 1000; i += 20) {
+			for (int i = 0; i <= 500; i += 20) {
 				URL url = new URL(
 						"http://news.baidu.com/ns?bt=0&et=0&si=&rn=20&tn=news&ie=gb2312&ct=1&word="
 						+URLEncoder.encode(y.getRoleName(), "gb2312")+"&pn="+ i + "&cl=2");
+			//	URL url1 = new URL("www.baidu.com");
 				HttpURLConnection httpConn = (HttpURLConnection) url
 						.openConnection();
 				InputStreamReader input = new InputStreamReader(httpConn

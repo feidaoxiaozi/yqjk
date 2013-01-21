@@ -35,6 +35,7 @@ public class ExcelTest {
 			report.setTitle(rs.getString(2));
 			report.setUrl(rs.getString(3));
 			report.setResource(rs.getString(4));
+			report.setRoleId(rs.getInt(5));
 			al.add(report);
 			}
 		} catch (SQLException e) {

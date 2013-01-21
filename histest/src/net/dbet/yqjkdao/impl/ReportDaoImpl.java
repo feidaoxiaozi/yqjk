@@ -7,19 +7,18 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
-
 import net.dbet.util.DBConn;
-import net.dbet.util.GetNewsByKeys;
+import net.dbet.util.GetNewsByBaidu;
 import net.dbet.yqjk.Report;
 import net.dbet.yqjk.Yqjkxx;
+
 import net.dbet.yqjkdao.ReportDao;
-
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
-
 import com.mysql.jdbc.PreparedStatement;
-import com.mysql.jdbc.ResultSet;
-import com.mysql.jdbc.Statement;
+import java.sql.ResultSet;
 
 public class ReportDaoImpl extends HibernateDaoSupport implements ReportDao {
 	@SuppressWarnings("unchecked")
@@ -31,7 +30,7 @@ public class ReportDaoImpl extends HibernateDaoSupport implements ReportDao {
 		public void getFile(){		
 		  loadData("D:"+File.separator+"aaa.txt");
 		}
-      //数据记录导入
+     
 		public boolean loadData(String file){
 			DBConn db = new DBConn();
 			Connection con  = db.getConn();
@@ -40,33 +39,31 @@ public class ReportDaoImpl extends HibernateDaoSupport implements ReportDao {
 				ResultSet rs = null;
 				BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(file))));
 				String line ="";
-                String sql ="insert into yqjk_report (reportId,title,url,resource)values(?,?,?,?)";
+                String sql ="insert into yqjk_report (reportId,title,url,resource,roleId)values(?,?,?,?,?)";
 				try {
 					con.setAutoCommit(false);
 					ps = (PreparedStatement)con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 							
-					int n=0,index=1 ;
-					
+					int n=0,index=1,road=1 ;
 					try {						
-						while ((line = br.readLine()) != null) {								
-							
-						int reportId=index++;	
-						String title=line.substring(0, line.indexOf("~"));						
-						String url=line.substring(line.indexOf("~")+1, line.indexOf("#"));
-						String resource=line.substring(line.indexOf("#")+1, line.indexOf("$"));
-													
+						while ((line = br.readLine()) != null) {
+						int reportId = index++;	
+						String title=line.substring(0, line.indexOf("~")+1).trim();						
+						String url=line.substring(line.indexOf("~")+1, line.indexOf("#")+1).trim();
+						String resource=line.substring(line.indexOf("#")+1, line.indexOf("$")+1).trim();
+						int roleId = road++;							
 						    ps.setInt(1,reportId);
 							ps.setString(2, title);
 							ps.setString(3, url);
 							ps.setString(4, resource);
+							ps.setInt(5, roleId);
 							ps.addBatch();
 							n++;
 							if(n>1000){
 								ps.executeBatch();
 								n=0;
 							}				                       
-							ps.executeBatch();
-							
+							ps.executeBatch();							
 							con.commit();
 						}
 						
@@ -97,23 +94,66 @@ public class ReportDaoImpl extends HibernateDaoSupport implements ReportDao {
 			}
 			return true;
 		}
+	
+		
 	public void insertReport(Report report) {
 		
-		GetNewsByKeys gnbk = new GetNewsByKeys();
-			try {
+		ArrayList<Yqjkxx> resource = getNewsResources();
+		
+		for(Yqjkxx yqjkxx: resource){
+		String str = yqjkxx.getNewsResource();
+
+		if(str.contains("鏂伴椈")){
+				GetNewsByBaidu gnbk = new GetNewsByBaidu();
+				try {
+					
+					gnbk.getNews();
+					
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
-				gnbk.getNews();
-				
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				getFile();
 			}
-			
-			getFile();
+	}	
 	}
-	
 	public Yqjkxx findByRoleId(int roleId) {
 		Yqjkxx yqjkxx = (Yqjkxx) this.getHibernateTemplate().get(Yqjkxx.class, roleId);
 		return yqjkxx;		
 	}
+	
+	public ArrayList<Yqjkxx> getNewsResources(){
+	     DBConn db = new DBConn();
+	     Statement st = null;
+		 ResultSet rs = null;
+		 Connection con = null;
+	  	ArrayList<Yqjkxx> al = new ArrayList<Yqjkxx>();
+	  	
+	  	con = db.getConn();
+	  	String sql = "select * from yqjk_task";
+	  	try {
+	  			st = con.createStatement();
+				rs = (ResultSet)st.executeQuery(sql);		
+				while(rs.next()){
+				Yqjkxx yqjkxx = new Yqjkxx();
+				yqjkxx.setRoleId(rs.getInt(1));
+				yqjkxx.setRoleName(rs.getString(2));
+				yqjkxx.setNewsResource(rs.getString(3));
+				yqjkxx.setFindStyle(rs.getString(4));
+				yqjkxx.setCollectDate(rs.getString(5));
+				yqjkxx.setCollectCondition(rs.getString(6));
+				yqjkxx.setContentMate(rs.getString(7));
+				yqjkxx.setSite_collection(rs.getString(8));
+				yqjkxx.setRoleState(rs.getString(9));
+				al.add(yqjkxx);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				db.close();
+			}
+	  	return al;
+	  }
 }

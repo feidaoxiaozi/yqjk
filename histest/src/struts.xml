@@ -10,7 +10,7 @@
 		<action name="addYqjk" class="SaveYqjkxxAction">
 			
 			<result name="success" type="redirect">
-				loadReport.action
+				ListYqjk.action
 			</result>
 			<result name="input">/save.jsp</result>
 		</action>

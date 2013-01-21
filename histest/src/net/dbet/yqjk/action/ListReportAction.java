@@ -1,5 +1,6 @@
 package net.dbet.yqjk.action;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import net.dbet.service.ReportService;
@@ -36,7 +37,7 @@ public class ListReportAction extends ActionSupport {
     Map request = (Map) ActionContext.getContext().get("request");
 						
 		request.put("list", service.findAllReportxx());
-        
+       
 		return SUCCESS;
 	}
 }

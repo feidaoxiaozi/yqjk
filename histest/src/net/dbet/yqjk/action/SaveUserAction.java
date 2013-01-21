@@ -1,8 +1,5 @@
 package net.dbet.yqjk.action;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.dbet.service.UserService;
 import net.dbet.yqjk.User;
 
@@ -39,18 +36,18 @@ public class SaveUserAction extends ActionSupport{
 //			List list = new ArrayList();
 //			list.add(user.getUsername());
 //			addActionError(getText("username.invalid",list)); 
-//			this.addFieldError("username", "ÓÃ»§ÃûÊäÈë²»ºÏ·¨");
+//			this.addFieldError("username", "ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë²»ï¿½Ï·ï¿½");
 //		}
 //		if (null == user.getPassword() || user.getPassword().length() < 6 || user.getPassword().length() > 10) {
-//			this.addFieldError("password", "ÃÜÂëÊäÈë²»ºÏ·¨"); 
+//			this.addFieldError("password", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë²»ï¿½Ï·ï¿½"); 
 //		}if (null == user.getRepassword() || user.getRepassword().length() < 6
 //				|| user.getRepassword().length() > 10) {
-//			this.addFieldError("repassword", "ÖØ¸´ÃÜÂëÊäÈë´íÎó");
+//			this.addFieldError("repassword", "ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 //		} else if (!user.getRepassword().equals(user.getPassword())) {
-//			this.addFieldError("repassword", "Á½´ÎÊäÈë±ØĞëÒ»ÖÂ");
+//			this.addFieldError("repassword", "}ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½");
 //		}
 //		if (user.getAge() > 100 || user.getAge() < 1) {
-//			this.addFieldError("age", "ÄêÁäÊäÈë²»ºÏ·¨");
+//			this.addFieldError("age", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë²»ï¿½Ï·ï¿½");
 //		}
 //		if(("!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/").equals(user.getEmail())){
 //			

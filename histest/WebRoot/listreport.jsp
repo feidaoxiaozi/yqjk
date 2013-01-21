@@ -133,13 +133,13 @@ for(i=0;i<cs.length;i++){
       <s:iterator value="#request.list" id="report">
        
 			 <tr>              
-                  
+                   <s:hidden value="reportId"/>
                    <td height="30" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><s:property value="#report.title"/></div></td>
                    <td height="30" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><s:property value="#report.url"/></div></td>                   
                    <td height="30" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><s:property value="#report.resource"/></div></td>                   
-                   
+                   <!--  
                    <td height="30" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><s:property value="#report.published_time"/></div></td>                  
-                 <!--     
+                    
                     <td height="30" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><s:property value="#report.seach_time"/></div></td>
                         <td><s:hidden value="report.reportId"/></td>
                    <td height="30" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><s:property value="#report.type"/></div></td>                    

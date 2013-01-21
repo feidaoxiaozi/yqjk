@@ -1,7 +1,4 @@
 package net.dbet.yqjk;
-
-import java.util.Date;
-
 import net.dbet.excel.ExcelAnnotation;
 
 public class Report {
@@ -19,7 +16,8 @@ public class Report {
 	@SuppressWarnings("unused")
 	@ExcelAnnotation(name = "新闻来源")
 	private String resource;
-	
+	@SuppressWarnings("unused")
+	@ExcelAnnotation(name = "任务ID")
 	//private String published_time; 
 	
 //	private int reprinted_volume;
@@ -35,7 +33,7 @@ public class Report {
 	
 //	private String engineName;
 //	
-//	private int roleId;
+	private int roleId;
 
 //	public Report(int reportId, String title, String url, String resource) {
 //		super();
@@ -125,13 +123,13 @@ public class Report {
 //		this.engineName = engineName;
 //	}
 //
-//	public int getRoleId() {
-//		return roleId;
-//	}
+	public int getRoleId() {
+		return roleId;
+	}
 
-//	public void setRoleId(int roleId) {
-//		this.roleId = roleId;
-//	}
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
+	}
 
 //	public String getPublished_time() {
 //		return published_time;

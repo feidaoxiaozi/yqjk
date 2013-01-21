@@ -23,10 +23,10 @@
 		<property name="back_number" column="back_number"/>		
 		 <property name="type" column="type"/>
 		<property name="author" column="author"/>		
-		
-		<property name="engineName" column="engineName"/>		
+		<property name="engineName" column="engineName"/>
+			-->		
 		<property name="roleId" column="roleId"/>
-		-->
+	
 	</class>
 
 </hibernate-mapping>
