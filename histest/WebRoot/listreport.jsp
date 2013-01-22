@@ -132,7 +132,7 @@ for(i=0;i<cs.length;i++){
       </tr>
       <s:iterator value="#request.list" id="report">
        
-			 <tr>              
+			 <tr>             
                    <s:hidden value="reportId"/>
                    <td height="30" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><s:property value="#report.title"/></div></td>
                    <td height="30" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><s:property value="#report.url"/></div></td>                   

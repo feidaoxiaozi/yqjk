@@ -18,16 +18,16 @@ import net.dbet.yqjk.Yqjkxx;
 public class GetNewsByBaidu {
 	
 	@SuppressWarnings("unchecked")
-public String getNews() throws IOException {
+public String getNews() throws IOException, InterruptedException {
 		ArrayList<Yqjkxx> allKeyWords = getRoleName();
 		String line = "";
-		FileWriter out = new FileWriter(new File("D:"+File.separator+"aaa.txt"));
-		for(Yqjkxx y: allKeyWords){
-			for (int i = 0; i <= 500; i += 20) {
+		FileWriter out = new FileWriter(new File("D:"+File.separator+"newsbaidu.txt"));
+		for(Yqjkxx y: allKeyWords){			
+			for (int i = 0; i <= 100; i += 50) {
 				URL url = new URL(
 						"http://news.baidu.com/ns?bt=0&et=0&si=&rn=20&tn=news&ie=gb2312&ct=1&word="
 						+URLEncoder.encode(y.getRoleName(), "gb2312")+"&pn="+ i + "&cl=2");
-			//	URL url1 = new URL("www.baidu.com");
+			
 				HttpURLConnection httpConn = (HttpURLConnection) url
 						.openConnection();
 				InputStreamReader input = new InputStreamReader(httpConn
@@ -35,21 +35,24 @@ public String getNews() throws IOException {
 				BufferedReader bufReader = new BufferedReader(input);			
 				StringBuffer temp=new StringBuffer();  
 				boolean flags[]=new boolean[]{true,true,true};
-				while ((line = bufReader.readLine()) != null) {				
+				while ((line = bufReader.readLine()) != null) {		
+					
 					if(line.startsWith("title:")){
 						line=line.substring(line.indexOf(":")+1).replace("<font color=#C60A00>", "").replace("</font>","").replace("'","").replace(",","").replace("*/", "");
 						if(flags[0]){
 							temp.append(line+"~");
 						}
 						flags[0]=!flags[0];
+						continue;
 					}
 					if(line.startsWith("url:")){
-						line=line.substring(line.indexOf(":")+1).replace("<font color=#C60A00>", "").replace("</font>","").replace("'","").replace(",","");
+						line=line.substring(line.indexOf(":")+1).replace("<font color=#C60A00>", "").replace("</font>","").replace("'","").replace(",","").replace("'\'", "");
 						
 						if(flags[1]){
 							temp.append(line+"#");
 						}
 						flags[1]=!flags[1];
+						continue;
 					}
 					if(line.startsWith("source: ")){
 						line=line.substring(line.indexOf(":")+1).replace("<font color=#C60A00>", "").replace("</font>","").replace("'","").replace(",","");
@@ -57,19 +60,19 @@ public String getNews() throws IOException {
 							temp.append(line+"$");
 						}
 						flags[2]=!flags[2];
-					    }
-		
+						continue;
+					}
+					
 					if(flags[0]==false&&flags[1]==false&&flags[2]==false){					
-						if(temp.length()>5){
-						    temp.append("\r\n");
-							out.write(temp.toString());
+						if(temp.length()>7){							
+							out.write(temp.toString()+"\r\n");
 							System.out.println(temp);
 						}
-						temp.delete(0,temp.length()-1);
+						temp.delete(0,temp.length());
 					}
 					
 					}
-					
+				  Thread.sleep(1000);	
 			}
 		}
 		return line;

@@ -101,7 +101,7 @@ public class ExcelFileUtil {
 			for(int j = 0;j < columnValues.size();j++){
 				Label label = null;
 				//超过5000条数据就再建�?个sheet，这里设置为3用于测试
-				if (row > 3) {
+				if (row > 100) {
 					sheetNum++;
 					sheet = workbook.createSheet("Sheet" + sheetNum, sheetNum);
 					row = 1;

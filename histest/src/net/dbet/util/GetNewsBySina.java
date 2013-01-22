@@ -1,6 +1,12 @@
 package net.dbet.util;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+
+import net.dbet.yqjk.Yqjkxx;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -9,28 +15,38 @@ import org.jsoup.select.Elements;
 
 public class GetNewsBySina {
 	
-	public static void main(String[] args) throws IOException {
+	public String getnewsBySina() throws IOException {
+		FileWriter out = new FileWriter(new File("D:"+File.separator+"news.txt"));
+		GetNewsByBaidu gnbb = new GetNewsByBaidu(); 
+		ArrayList<Yqjkxx> list = gnbb.getRoleName();
+		for(Yqjkxx y: list){			
 		for(int i=0;i<=10;i++){
-		 String url = "http://search.sina.com.cn/?q=2013%B4%BA%CD%ED&c=news&from=channel&page=2&pf=2131425489&ps=2132080888&dpc=i";
+		 String url = "http://search.sina.com.cn/?q="+URLEncoder.encode(y.getRoleName(), "gb2312")+"&c=news&from=channel&page=2&pf=2131425489&ps=2132080888&dpc=i";
 		 Document doc = Jsoup.connect(url).get();
 		 Elements content = doc.select("div.r-info h2");
 		
 		 for(Element item:content){
 			 Elements a=item.getElementsByTag("a");
-			 Elements span=item.getElementsByClass("fgreen time");			 
+			 Elements span=item.getElementsByTag("span"); 
+			 String href=null;
+			 String text=null;
+			 String spantext=null;
 			 for(Element item_a:a){				 
-				 String href=item_a.attr("href");
-				 String text=item_a.text();
-				 System.out.println(text);
-				 System.out.println(href);
+				 href=item_a.attr("href");
+				 text=item_a.text();
+//				 System.out.println(text);
+//				 System.out.println(href);
 				 
 			 }
 			 for(Element item_span:span){				 
-				 String text=item_span.text();
-				 System.out.println(text);
+				 spantext=item_span.text();
+				 System.out.println(spantext);
 			 }
+			 out.write(text+"@"+href+"$"+spantext+"#"+"\r\n");
 		 }
 
 		 }
 	}
+		return null;
+}
 }

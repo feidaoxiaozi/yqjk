@@ -1,7 +1,11 @@
 package net.dbet.util;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import net.dbet.yqjk.Yqjkxx;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -9,28 +13,34 @@ import org.jsoup.select.Elements;
 
 public class GetNewsBySoso {
 	
-	public static void main(String[] args) throws IOException {
-		for(int i=0;i<=10;i++){
-		 String url = "http://www.soso.com/q?w=2013%B4%BA%CD%ED&lr=&sc=web&ch=w.p&num=10&gid=&cin=&site=news.qq.com&sf=0&sd=0&nf=0&pg="+i+"";
+	public String getSosoNews() throws IOException, InterruptedException {
+		
+		FileWriter out = new FileWriter(new File("D:"+File.separator+"news.txt"));
+		GetNewsByBaidu gnbb = new GetNewsByBaidu(); 
+		ArrayList<Yqjkxx> list = gnbb.getRoleName();
+		for(Yqjkxx y: list){			
+		for(int i=0;i<=5;i++){
+		 String url = "http://www.soso.com/q?w="
+		 		+URLEncoder.encode(y.getRoleName(), "gb2312")+"&lr=&sc=web&ch=w.p&num=10&gid=&cin=&site=news.qq.com&sf=0&sd=0&nf=0&pg="+i+"";
 		 Document doc = Jsoup.connect(url).get();
 		 Elements content = doc.select("div#result h3");
 		 for(Element item:content){
 			 Elements a=item.getElementsByTag("a");
-			 Elements span=item.getElementsByClass("url");
-			 
+		
 			 for(Element item_a:a){				 
 				 String href=item_a.attr("href");
 				 String text=item_a.text();
+				
+				 out.write(text+"@"+href+"$"+""+"#"+"\r\n");
+				
 				 System.out.println(text);
-				 System.out.println(href);
-				 
-			 }
-			 for(Element item_span:span){				 
-				 String text=item_span.text();
-				 System.out.println(text);
+				 System.out.println(href);				 				
 			 }
 		 }
-
+         Thread.sleep(1000);
 		 }
+		
+	}
+		return null;
 	}
 }
