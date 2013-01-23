@@ -17,6 +17,7 @@ import net.dbet.util.GetNewsByBaidu;
 import net.dbet.util.GetNewsBySina;
 import net.dbet.util.GetNewsBySohu;
 import net.dbet.util.GetNewsBySoso;
+import net.dbet.util.GetNewsByTieba;
 import net.dbet.yqjk.Report;
 import net.dbet.yqjk.Yqjkxx;
 
@@ -37,17 +38,11 @@ public class ReportDaoImpl extends HibernateDaoSupport implements ReportDao {
 		return (List<Report>)this.getHibernateTemplate().find(hql);
 	}
 	
-//		public void getFile(){		
-//			loadBaiduData("D:"+File.separator+"aaa.txt");
-//		}
-//		public void getSosoFile(){		
-//			loadBaiduData("D:"+File.separator+"newsdata"+File.separator+"soso.txt");
-//		}
 		public boolean loadBaiduData(String file){
 			
 			try {
 				
-			    br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(file))));
+			    br = new BufferedReader(new InputStreamReader(new FileInputStream(new File("D:"+File.separator+"newsbaidu.txt"))));
 				String line ="";
                 String sql ="insert into yqjk_report (reportId,title,url,resource,roleId)values(?,?,?,?,?)";
 				try {
@@ -58,7 +53,7 @@ public class ReportDaoImpl extends HibernateDaoSupport implements ReportDao {
 					try {						
 						while ((line = br.readLine()) != null) {
 						int reportId = index++;	
-						String title=line.substring(0, line.indexOf("~")+1).replace("~", "");					
+						String title=line.substring(1, line.indexOf("~")+1).replace("~", "");					
 						String url=line.substring(line.indexOf("~")+1, line.indexOf("#")+1).replace("#", "");
 						String resource=line.substring(line.indexOf("#")+1, line.indexOf("$")+1).replace("$","");
 						int roleId = road++;							
@@ -69,7 +64,7 @@ public class ReportDaoImpl extends HibernateDaoSupport implements ReportDao {
 							ps.setInt(5, roleId);
 							ps.addBatch();
 							n++;
-							if(n>1000){
+							if(n>500){
 								ps.executeBatch();
 								n=0;
 							}				                       
@@ -106,7 +101,7 @@ public class ReportDaoImpl extends HibernateDaoSupport implements ReportDao {
 		}
 	public boolean loadNewsData(String file){
 		try {
-			br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(file))));
+			br = new BufferedReader(new InputStreamReader(new FileInputStream(new File("D:"+File.separator+"news.txt"))));
 			String line ="";
             String sql ="insert into yqjk_report (reportId,title,url,resource,roleId)values(?,?,?,?,?)";
             try {
@@ -127,7 +122,7 @@ public class ReportDaoImpl extends HibernateDaoSupport implements ReportDao {
 							ps.setInt(5, roleId);
 							ps.addBatch();
 							n++;
-							if(n>1000){
+							if(n>100){
 								ps.executeBatch();
 								n=0;
 							}				                       
@@ -164,7 +159,67 @@ public class ReportDaoImpl extends HibernateDaoSupport implements ReportDao {
 		}
 		return true;
 	}
+	public boolean loadTiebaData(String file){
 		
+		try {
+			
+		    br = new BufferedReader(new InputStreamReader(new FileInputStream(new File("D:"+File.separator+"tieba.txt"))));
+			String line ="";
+            String sql ="insert into yqjk_report (reportId,title,url,resource,roleId)values(?,?,?,?,?)";
+			try {
+				con.setAutoCommit(false);
+				ps = (PreparedStatement)con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+						
+				int n=0,index=1,road=1 ;
+				try {						
+					while ((line = br.readLine()) != null) {
+					int reportId = index++;	
+					String title=line.substring(1, line.indexOf("@")+1).replace("@", "").trim();						
+					String url=line.substring(line.indexOf("@")+1, line.indexOf("$")+1).replace("$", "");
+					String resource=line.substring(line.indexOf("$")+1, line.indexOf("#")+1).replace("#", "");
+					int roleId = road++;							
+					    ps.setInt(1,reportId);
+						ps.setString(2, title);
+						ps.setString(3, url);
+						ps.setString(4, resource);
+						ps.setInt(5, roleId);
+						ps.addBatch();
+						n++;
+						if(n>100){
+							ps.executeBatch();
+							n=0;
+						}				                       
+						ps.executeBatch();							
+						con.commit();
+					}
+					
+				}catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally{
+					if(null!=rs){
+						rs.close();
+					}
+					if(null!=ps){
+						ps.close();
+					}
+					if(null!=ps2){
+						ps2.close();
+					}
+					if(null!=ps1){
+						ps1.close();
+					}
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();	
+		}
+		return true;
+	}	
 	public void insertReport(Report report){
 		
 		ArrayList<Yqjkxx> resource = getNewsResources();
@@ -179,28 +234,32 @@ public class ReportDaoImpl extends HibernateDaoSupport implements ReportDao {
 				GetNewsBy163 wangyi = new GetNewsBy163();
 				GetNewsBySina sina = new GetNewsBySina();
 				GetNewsBySohu sohu = new GetNewsBySohu();
-				try {					
-											try {
-												gnbk.getNews();
-												loadBaiduData("D:"+File.separator+"newsbaidu.txt");
-												gnbs.getSosoNews();
-											} catch (InterruptedException e) {
-												// TODO Auto-generated catch block
-												e.printStackTrace();
-											}									
-											wangyi.get163News();
-											sina.getnewsBySina();
-											sohu.getSohuNews();
-											loadNewsData("D:"+File.separator+"news.txt");
-					
+				try {																
+//						gnbk.getNews();
+//					    loadBaiduData("D:"+File.separator+"newsbaidu.txt");
+					    gnbs.getSosoNews();																																
+						wangyi.get163News();
+						sina.getnewsBySina();
+						sohu.getSohuNews();
+						loadNewsData("D:"+File.separator+"news.txt");	
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}				
-			}else if (newsState.equals("停用")) {
-				System.out.println("此项已停用");
+				}		
+		}
+		if(newsResource.contains("贴吧")&& newsState.equals("启用")){
+			GetNewsByTieba tieba = new GetNewsByTieba();
+			try {
+				tieba.getTiebaNews();
+				loadTiebaData("D:"+File.separator+"tieba.txt");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-	}	
+	}else if (newsState.equals("停用")) {
+		System.out.println("此项已停用");
+	}
+		}
 	}
 	public Yqjkxx findByRoleId(int roleId) {
 		Yqjkxx yqjkxx = (Yqjkxx) this.getHibernateTemplate().get(Yqjkxx.class, roleId);

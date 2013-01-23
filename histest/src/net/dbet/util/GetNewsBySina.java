@@ -20,7 +20,7 @@ public class GetNewsBySina {
 		GetNewsByBaidu gnbb = new GetNewsByBaidu(); 
 		ArrayList<Yqjkxx> list = gnbb.getRoleName();
 		for(Yqjkxx y: list){			
-		for(int i=0;i<=10;i++){
+		for(int i=0;i<=40;i++){
 		 String url = "http://search.sina.com.cn/?q="+URLEncoder.encode(y.getRoleName(), "gb2312")+"&c=news&from=channel&page=2&pf=2131425489&ps=2132080888&dpc=i";
 		 Document doc = Jsoup.connect(url).get();
 		 Elements content = doc.select("div.r-info h2");
@@ -34,17 +34,25 @@ public class GetNewsBySina {
 			 for(Element item_a:a){				 
 				 href=item_a.attr("href");
 				 text=item_a.text();
-//				 System.out.println(text);
-//				 System.out.println(href);
+				 System.out.println(text);
+				 System.out.println(href);
 				 
 			 }
 			 for(Element item_span:span){				 
 				 spantext=item_span.text();
 				 System.out.println(spantext);
 			 }
-			 out.write(text+"@"+href+"$"+spantext+"#"+"\r\n");
+             out.write(text+"@"+href+"$"+spantext+"#"+"\r\n");
+//			 out.write(text);
+//			 out.write(href);
+//			 out.write(spantext);
 		 }
-
+		 try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		 }
 	}
 		return null;

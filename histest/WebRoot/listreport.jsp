@@ -116,7 +116,7 @@ for(i=0;i<cs.length;i++){
        
         <td width="10%" height="30" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">标题</span></div></td>
         <td width="12%" height="30" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">URL</span></div></td>  
-        <td width="10%" height="30" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">来源</span></div></td>
+        <td width="10%" height="30" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">来源和时间</span></div></td>
          <!--
         <td width="10%" height="30" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">发表时间</span></div></td>        
                
@@ -158,7 +158,7 @@ for(i=0;i<cs.length;i++){
   </tr>
   
 </table>
-    <s:a href="generateExcel.action"><font color="red" size="3">生成Excel</font></s:a>
+   
 </s:form>
 </body>
 </html>

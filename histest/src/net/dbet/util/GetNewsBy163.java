@@ -14,13 +14,13 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class GetNewsBy163 {
-	public String  get163News() throws IOException {
+	public String get163News() throws IOException {
 		FileWriter out = new FileWriter(new File("D:"+File.separator+"news.txt"));
 		GetNewsByBaidu gnbb = new GetNewsByBaidu(); 
 		ArrayList<Yqjkxx> list = gnbb.getRoleName();
 		for(Yqjkxx y: list){		
-		for(int i=0;i<=200;i+=10){
-		 String url = "http://news.youdao.com/search?q="+URLEncoder.encode(y.getRoleName(), "gb2312")+"&start="+8+"&length=10&s=byrelevance&tr=no_range&keyfrom=search.page&suser=user163&site=163.com";
+		for(int i=0;i<=500;i+=10){
+		 String url = "http://news.youdao.com/search?q="+URLEncoder.encode(y.getRoleName(), "gb2312")+"&start="+i+"&length=10&s=byrelevance&tr=no_range&keyfrom=search.page&suser=user163&site=163.com";
 		 Document doc = Jsoup.connect(url).get();
 		 Elements content = doc.select("div#resc h3");
 		 String href = null;
@@ -46,7 +46,12 @@ public class GetNewsBy163 {
 			 System.out.println(href);
 			 System.out.println(spantext);
 		 }
-
+		 try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		 }
 	}
 		return null;

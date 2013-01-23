@@ -14,7 +14,7 @@ public class Report {
 	@ExcelAnnotation(name = "URL")
 	private String url;
 	@SuppressWarnings("unused")
-	@ExcelAnnotation(name = "新闻来源")
+	@ExcelAnnotation(name = "新闻来源和时间")
 	private String resource;
 	@SuppressWarnings("unused")
 	@ExcelAnnotation(name = "任务ID")

@@ -18,12 +18,12 @@ import net.dbet.yqjk.Yqjkxx;
 public class GetNewsByBaidu {
 	
 	@SuppressWarnings("unchecked")
-public String getNews() throws IOException, InterruptedException {
+public String getNews() throws IOException{
 		ArrayList<Yqjkxx> allKeyWords = getRoleName();
 		String line = "";
 		FileWriter out = new FileWriter(new File("D:"+File.separator+"newsbaidu.txt"));
 		for(Yqjkxx y: allKeyWords){			
-			for (int i = 0; i <= 100; i += 50) {
+			for (int i = 0; i <= 1000; i += 20) {
 				URL url = new URL(
 						"http://news.baidu.com/ns?bt=0&et=0&si=&rn=20&tn=news&ie=gb2312&ct=1&word="
 						+URLEncoder.encode(y.getRoleName(), "gb2312")+"&pn="+ i + "&cl=2");
@@ -72,13 +72,18 @@ public String getNews() throws IOException, InterruptedException {
 					}
 					
 					}
-				  Thread.sleep(1000);	
+				  try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}	
 			}
 		}
 		return line;
 	}
 	  @SuppressWarnings("unchecked")
-  public ArrayList<Yqjkxx> getRoleName(){
+  public static ArrayList<Yqjkxx> getRoleName(){
      DBConn db = new DBConn();
      Statement st = null;
 	 ResultSet rs = null;
