@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import net.dbet.util.DBConn;
 import net.dbet.util.GetNewsBy163;
+import net.dbet.util.GetNewsBy360;
 import net.dbet.util.GetNewsByBaidu;
 import net.dbet.util.GetNewsBySina;
 import net.dbet.util.GetNewsBySohu;
@@ -234,13 +235,15 @@ public class ReportDaoImpl extends HibernateDaoSupport implements ReportDao {
 				GetNewsBy163 wangyi = new GetNewsBy163();
 				GetNewsBySina sina = new GetNewsBySina();
 				GetNewsBySohu sohu = new GetNewsBySohu();
+				GetNewsBy360 new3 = new GetNewsBy360();
 				try {																
-//						gnbk.getNews();
-//					    loadBaiduData("D:"+File.separator+"newsbaidu.txt");
+						gnbk.getNews();
+					    loadBaiduData("D:"+File.separator+"newsbaidu.txt");
 					    gnbs.getSosoNews();																																
 						wangyi.get163News();
 						sina.getnewsBySina();
 						sohu.getSohuNews();
+						new3.get360News();
 						loadNewsData("D:"+File.separator+"news.txt");	
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
