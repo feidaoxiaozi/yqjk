@@ -91,11 +91,6 @@
 		class="net.dbet.yqjk.action.LoadReportAction" scope="prototype">
 		<property name="service" ref="reportService"></property>
 	</bean>
-	<bean id="GenerateExcelAction"
-		class="net.dbet.yqjk.action.GenerateReportExcelAction" scope="singleton">
-		<property name="service" ref="reportService"></property>
-	</bean>
-	
 	<bean id="userDao" class="net.dbet.yqjkdao.impl.UserDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>

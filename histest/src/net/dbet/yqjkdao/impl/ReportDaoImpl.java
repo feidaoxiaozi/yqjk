@@ -19,6 +19,7 @@ import net.dbet.util.GetNewsBySina;
 import net.dbet.util.GetNewsBySohu;
 import net.dbet.util.GetNewsBySoso;
 import net.dbet.util.GetNewsByTieba;
+import net.dbet.util.TestTimer;
 import net.dbet.yqjk.Report;
 import net.dbet.yqjk.Yqjkxx;
 
@@ -55,7 +56,8 @@ public class ReportDaoImpl extends HibernateDaoSupport implements ReportDao {
 						while ((line = br.readLine()) != null) {
 						int reportId = index++;	
 						String title=line.substring(1, line.indexOf("~")+1).replace("~", "");					
-						String url=line.substring(line.indexOf("~")+1, line.indexOf("#")+1).replace("#", "");
+						String url=line.substring(line.indexOf("~")+1, line.indexOf("#")+1).replace("#", "").replace("\\", "");
+;
 						String resource=line.substring(line.indexOf("#")+1, line.indexOf("$")+1).replace("$","");
 						int roleId = road++;							
 						    ps.setInt(1,reportId);
@@ -221,6 +223,12 @@ public class ReportDaoImpl extends HibernateDaoSupport implements ReportDao {
 		}
 		return true;
 	}	
+	GetNewsByBaidu gnbk = null;
+    GetNewsBySoso gnbs = null;
+    GetNewsBy163 wangyi = null;
+    GetNewsBySina sina = null;
+    GetNewsBySohu sohu = null;
+    GetNewsBy360 new3 = null;
 	public void insertReport(Report report){
 		
 		ArrayList<Yqjkxx> resource = getNewsResources();
@@ -228,14 +236,14 @@ public class ReportDaoImpl extends HibernateDaoSupport implements ReportDao {
 		for(Yqjkxx yqjkxx: resource){
 		String newsResource = yqjkxx.getNewsResource();
         String newsState = yqjkxx.getRoleState();
-        System.out.println("newsState="+newsState);
+        
 		if(newsResource.contains("新闻")&& newsState.equals("启用")){
-				GetNewsByBaidu gnbk = new GetNewsByBaidu();
-				GetNewsBySoso gnbs = new GetNewsBySoso();
-				GetNewsBy163 wangyi = new GetNewsBy163();
-				GetNewsBySina sina = new GetNewsBySina();
-				GetNewsBySohu sohu = new GetNewsBySohu();
-				GetNewsBy360 new3 = new GetNewsBy360();
+				gnbk = new GetNewsByBaidu();
+				gnbs = new GetNewsBySoso();
+				wangyi = new GetNewsBy163();
+				sina = new GetNewsBySina();
+				sohu = new GetNewsBySohu();
+				new3 = new GetNewsBy360();
 				try {																
 						gnbk.getNews();
 					    loadBaiduData("D:"+File.separator+"newsbaidu.txt");
@@ -244,7 +252,9 @@ public class ReportDaoImpl extends HibernateDaoSupport implements ReportDao {
 						sina.getnewsBySina();
 						sohu.getSohuNews();
 						new3.get360News();
-						loadNewsData("D:"+File.separator+"news.txt");	
+						loadNewsData("D:"+File.separator+"news.txt");
+						TestTimer tt = new TestTimer();
+						tt.useTimer();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

@@ -47,6 +47,7 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jboss-archive-browsing.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jdbc2_0-stdext.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jotm.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jsoup-1.7.1(1).jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jta.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jxl.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/log4j-1.2.11.jar"/>
@@ -79,6 +80,5 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/xerces-2.6.2.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/xml-apis.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/xwork-core-2.1.6.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/jsoup-1.7.1(1).jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

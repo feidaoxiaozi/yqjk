@@ -11,19 +11,21 @@ public class GetKeysByTxWeibo {
 	
 	@SuppressWarnings("unchecked")
 public static void main(String[] args) throws IOException{
-		 String url = "http://search.t.qq.com/index.php?k=%E7%8E%8B%E5%8A%9B%E5%AE%8F&pos=211&p=6";
+		 String url = "http://search.t.qq.com/index.php?k=%E5%88%98%E5%BE%B7%E5%8D%8E&pos=211&p=2";
 		 Document doc = Jsoup.connect(url).get();
-	     Elements content = doc.select("div.main div");
-	     //Elements els = content.select("div.msgCnt");
-	     Elements mmm = content.select("div.mediaWrap");
-	     System.out.println(mmm);
-	     Elements nnn = mmm.select("div.picBox");
-	     
-		 for(Element item:nnn){
+	     Elements content = doc.select("div.sosoBox div");
+	     System.out.println(content);
+	     Elements els = content.select(".msgCnt");
+	     System.out.println(els);
+//	     Elements mmm = content.select("div.mediaWrap");
+//	     System.out.println(mmm);
+//	     Elements nnn = mmm.select("div.picBox");
+//	     
+		 for(Element item:content){
 			 
-			 Elements span=item.getElementsByClass("msgCnt");
+			Elements span=item.getElementsByClass("g");
 			
-			 Elements a=item.getElementsByTag("a");
+			 Elements a=item.getElementsByTag("a");			
 			 for(Element item_a:a){				 
 				 String href=item_a.attr("href");
 				 String text=item_a.text();
@@ -33,10 +35,10 @@ public static void main(String[] args) throws IOException{
 			 }
 			 for(Element item_span:span){				 
 				 String text=item_span.text();
-				 //System.out.println(text);
+				 System.out.println(text);
 			 }
 		 }
-
+    
 		 }
 	}
-	
+

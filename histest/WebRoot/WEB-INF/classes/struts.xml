@@ -54,31 +54,6 @@
 		<action name="listReport" class="ListReportAction">
 			<result name="success">/listreport.jsp</result>
 		</action>
-		<action name="download" class="net.dbet.yqjk.action.DownloadAction" method="getDownLoadStream">
-			<result name="success" type="stream">
-				<param name="contentType">
-					application/vnd.ms-powerpoint
-				</param>
-				<param name="contentDisposition">
-					filename="listreport.jsp"
-				</param>
-				<param name="inputName">downLoadFile</param>
-			</result>
-		</action>
-		<action name="generateExcel" class="GenerateExcelAction">
-			<result name="success" type="stream">
-				<param name="contentType">
-					application/vnd.ms-excel
-				</param>
-
-				<param name="contentDisposition">
-					filename="AllReports.xls"
-				</param>
-
-				<param name="inputName">downloadFile</param>
-
-			</result>
-		</action>
 				
     </package>
     <package name="user" extends="struts-default">

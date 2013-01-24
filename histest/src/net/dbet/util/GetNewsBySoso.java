@@ -24,6 +24,7 @@ public class GetNewsBySoso {
 		 		+URLEncoder.encode(y.getRoleName(), "gb2312")+"&lr=&sc=web&ch=w.p&num=10&gid=&cin=&site=news.qq.com&sf=0&sd=0&nf=0&pg="+i+"";
 		 Document doc = Jsoup.connect(url).get();
 		 Elements content = doc.select("div#result h3");
+		 
 		 for(Element item:content){
 			 Elements a=item.getElementsByTag("a");
 			 String href= null;

@@ -18,12 +18,12 @@
 		<property name="contentMate" column="contentMate"/>
 		<property name="Site_collection" column="Site_collection"/>		
 		<property name="roleState" column="roleState"/>
-		 
+		 <!-- 
 		<set name="report" table="yqjk_report" order-by="resource">
               <key column="roleId"/>
               <one-to-many class="net.dbet.yqjk.Report"/>
        </set> 	
-     	
+     	 -->
 	</class>
 
 </hibernate-mapping>

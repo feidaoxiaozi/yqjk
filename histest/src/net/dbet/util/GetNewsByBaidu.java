@@ -23,10 +23,10 @@ public String getNews() throws IOException{
 		String line = "";
 		FileWriter out = new FileWriter(new File("D:"+File.separator+"newsbaidu.txt"));
 		for(Yqjkxx y: allKeyWords){			
-			for (int i = 0; i <= 1000; i += 20) {
+			for (int i = 0; i <= 2000; i += 20) {
 				URL url = new URL(
 						"http://news.baidu.com/ns?bt=0&et=0&si=&rn=20&tn=news&ie=gb2312&ct=1&word="
-						+URLEncoder.encode(y.getRoleName(), "gb2312")+"&pn="+ i + "&cl=2");
+						+URLEncoder.encode(y.getRoleName(), "gb2312")+URLEncoder.encode(y.getCollectCondition(), "gb2312")+URLEncoder.encode(y.getContentMate(), "gb2312")+"&pn="+ i + "&cl=2");
 			
 				HttpURLConnection httpConn = (HttpURLConnection) url
 						.openConnection();
@@ -56,6 +56,7 @@ public String getNews() throws IOException{
 					}
 					if(line.startsWith("source: ")){
 						line=line.substring(line.indexOf(":")+1).replace("<font color=#C60A00>", "").replace("</font>","").replace("'","").replace(",","");
+						 
 						if(flags[2]){
 							temp.append(line+"$");
 						}
@@ -83,7 +84,7 @@ public String getNews() throws IOException{
 		return line;
 	}
 	  @SuppressWarnings("unchecked")
-  public static ArrayList<Yqjkxx> getRoleName(){
+  public ArrayList<Yqjkxx> getRoleName(){
      DBConn db = new DBConn();
      Statement st = null;
 	 ResultSet rs = null;

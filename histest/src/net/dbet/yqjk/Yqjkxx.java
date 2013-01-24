@@ -21,15 +21,15 @@ public class Yqjkxx{
 
     private String roleState;
     
-    private Set<Report> report; 
-
-	public Set<Report> getReport() {
-		return report;
-	}
-
-	public void setReport(Set<Report> report) {
-		this.report = report;
-	}
+//    private Set<Report> report; 
+//
+//	public Set<Report> getReport() {
+//		return report;
+//	}
+//
+//	public void setReport(Set<Report> report) {
+//		this.report = report;
+//	}
 
 	public int getRoleId() {
 		return roleId;

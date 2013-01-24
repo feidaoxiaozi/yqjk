@@ -21,7 +21,7 @@ public class GetNewsBy360 {
 		ArrayList<Yqjkxx> list = gnbb.getRoleName();
 		for(Yqjkxx y: list){	
 		for(int i=0;i<=10;i++){
-		 String url = "http://news.so.com/ns?q="+URLEncoder.encode(y.getRoleName(), "gb2312")+"&pn=i&tn=news";
+		 String url = "http://news.so.com/ns?q="+URLEncoder.encode(y.getRoleName(), "gb2312")+"&pn=4&tn=news";
 		 Document doc = Jsoup.connect(url).get();
 		 Elements content = doc.select("div#container h3");
 		 for(Element item:content){
