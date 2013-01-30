@@ -67,7 +67,7 @@ body {
       <s:select name="yqjkxx.findStyle" list="{'标题&时间搜索','正文&相关度搜索'}" value="%{yqjkxx.findStyle}"/>
       
       <span class="STYLE10">采集时段</span> 
-      <s:select name="yqjkxx.collectDate" list="{'当天','三天内','一周内','半个月内','三个月内','半年内'}" value="%{yqjkxx.collectDate}"/>
+      <s:select name="yqjkxx.collectDate" list="{'五小时内','十小时内','当天','三天内','一周内','半个月内'}" value="%{yqjkxx.collectDate}"/>
     </span></div></td>
     </tr>
   <tr>

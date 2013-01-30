@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import net.dbet.util.DBConn;
 import net.dbet.util.GetNewsBy163;
@@ -19,7 +20,6 @@ import net.dbet.util.GetNewsBySina;
 import net.dbet.util.GetNewsBySohu;
 import net.dbet.util.GetNewsBySoso;
 import net.dbet.util.GetNewsByTieba;
-import net.dbet.util.TestTimer;
 import net.dbet.yqjk.Report;
 import net.dbet.yqjk.Yqjkxx;
 
@@ -27,6 +27,8 @@ import net.dbet.yqjkdao.ReportDao;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import com.mysql.jdbc.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class ReportDaoImpl extends HibernateDaoSupport implements ReportDao {
 	DBConn db = new DBConn();
@@ -36,38 +38,42 @@ public class ReportDaoImpl extends HibernateDaoSupport implements ReportDao {
 	BufferedReader br = null;
 	@SuppressWarnings("unchecked")
 	public List<Report> findAllReportxx() {
-		String hql = "from Report";
+		String hql = "from Report order by published_time desc";
 		return (List<Report>)this.getHibernateTemplate().find(hql);
 	}
-	
 		public boolean loadBaiduData(String file){
 			
 			try {
 				
 			    br = new BufferedReader(new InputStreamReader(new FileInputStream(new File("D:"+File.separator+"newsbaidu.txt"))));
 				String line ="";
-                String sql ="insert into yqjk_report (reportId,title,url,resource,roleId)values(?,?,?,?,?)";
+                String sql ="insert into yqjk_report (reportId,title,url,resource,published_time)values(?,?,?,?,?)";
 				try {
 					con.setAutoCommit(false);
 					ps = (PreparedStatement)con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 							
-					int n=0,index=1,road=1 ;
+					int n=0,index=1;
+					String published_time = null;
+					//boolean b = line.contains("&");
 					try {						
 						while ((line = br.readLine()) != null) {
 						int reportId = index++;	
-						String title=line.substring(1, line.indexOf("~")+1).replace("~", "");					
-						String url=line.substring(line.indexOf("~")+1, line.indexOf("#")+1).replace("#", "").replace("\\", "");
-;
-						String resource=line.substring(line.indexOf("#")+1, line.indexOf("$")+1).replace("$","");
-						int roleId = road++;							
+						String title=line.substring(1, line.indexOf("~")).replace("~", "");					
+						String url=line.substring(line.indexOf("~")+1, line.indexOf("#")+1).replace("#", "");
+						String resource=line.substring(line.indexOf("#")+1, line.indexOf("$")+1).replace("$", "");
+						System.out.println("hhh="+line.indexOf("$"));
+						System.out.println("mmm="+ line.indexOf("^")+1);
+						published_time = line.substring(line.indexOf("$")+1, line.indexOf("^")+1).replace("^", "");
+						System.out.println("published_time="+published_time);
+						
 						    ps.setInt(1,reportId);
 							ps.setString(2, title);
 							ps.setString(3, url);
 							ps.setString(4, resource);
-							ps.setInt(5, roleId);
+							ps.setString(5, published_time);
 							ps.addBatch();
 							n++;
-							if(n>500){
+							if(n>1000){
 								ps.executeBatch();
 								n=0;
 							}				                       
@@ -106,26 +112,26 @@ public class ReportDaoImpl extends HibernateDaoSupport implements ReportDao {
 		try {
 			br = new BufferedReader(new InputStreamReader(new FileInputStream(new File("D:"+File.separator+"news.txt"))));
 			String line ="";
-            String sql ="insert into yqjk_report (reportId,title,url,resource,roleId)values(?,?,?,?,?)";
+            String sql ="insert into yqjk_report (reportId,title,url,resource,published_time)values(?,?,?,?,?)";
             try {
 				con.setAutoCommit(false);
 				ps = (PreparedStatement)con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-				int n=0,index=1,road=1 ;
+				int n=0,index=1 ;
 				try {
 					while ((line = br.readLine()) != null) {
 						int reportId = index++;	
-						String title=line.substring(0, line.indexOf("@")+1).replace("@", "");						
-						String url=line.substring(line.indexOf("@")+1, line.indexOf("$")+1).replace("$", "");
-						String resource=line.substring(line.indexOf("$")+1, line.indexOf("#")+1).replace("#", "");
-						int roleId = road++;							
+						String title = line.substring(0, line.indexOf("@")+1).replace("@", "");
+						String url=line.substring(line.indexOf("@"), line.indexOf("$")+1).replace("$", "");
+						String resource=line.substring(line.indexOf("$"), line.indexOf("#")+1).replace("#", "");
+						String published_time = line.substring(line.indexOf("#"),line.indexOf("&")+1).replace("&", "");							
 						    ps.setInt(1,reportId);
 							ps.setString(2, title);
 							ps.setString(3, url);
 							ps.setString(4, resource);
-							ps.setInt(5, roleId);
+							ps.setString(5, published_time);
 							ps.addBatch();
 							n++;
-							if(n>100){
+							if(n>1000){
 								ps.executeBatch();
 								n=0;
 							}				                       
@@ -177,7 +183,8 @@ public class ReportDaoImpl extends HibernateDaoSupport implements ReportDao {
 				try {						
 					while ((line = br.readLine()) != null) {
 					int reportId = index++;	
-					String title=line.substring(1, line.indexOf("@")+1).replace("@", "").trim();						
+					String title=line.substring(1, line.indexOf("@")+1).replace("@", "").trim();
+					
 					String url=line.substring(line.indexOf("@")+1, line.indexOf("$")+1).replace("$", "");
 					String resource=line.substring(line.indexOf("$")+1, line.indexOf("#")+1).replace("#", "");
 					int roleId = road++;							
@@ -188,7 +195,7 @@ public class ReportDaoImpl extends HibernateDaoSupport implements ReportDao {
 						ps.setInt(5, roleId);
 						ps.addBatch();
 						n++;
-						if(n>100){
+						if(n>500){
 							ps.executeBatch();
 							n=0;
 						}				                       
@@ -223,12 +230,6 @@ public class ReportDaoImpl extends HibernateDaoSupport implements ReportDao {
 		}
 		return true;
 	}	
-	GetNewsByBaidu gnbk = null;
-    GetNewsBySoso gnbs = null;
-    GetNewsBy163 wangyi = null;
-    GetNewsBySina sina = null;
-    GetNewsBySohu sohu = null;
-    GetNewsBy360 new3 = null;
 	public void insertReport(Report report){
 		
 		ArrayList<Yqjkxx> resource = getNewsResources();
@@ -236,25 +237,25 @@ public class ReportDaoImpl extends HibernateDaoSupport implements ReportDao {
 		for(Yqjkxx yqjkxx: resource){
 		String newsResource = yqjkxx.getNewsResource();
         String newsState = yqjkxx.getRoleState();
-        
+        System.out.println("newsState="+newsState);
 		if(newsResource.contains("新闻")&& newsState.equals("启用")){
-				gnbk = new GetNewsByBaidu();
-				gnbs = new GetNewsBySoso();
-				wangyi = new GetNewsBy163();
-				sina = new GetNewsBySina();
-				sohu = new GetNewsBySohu();
-				new3 = new GetNewsBy360();
+				GetNewsByBaidu gnbk = new GetNewsByBaidu();
+				GetNewsBySoso gnbs = new GetNewsBySoso();
+				GetNewsBy163 wangyi = new GetNewsBy163();
+				GetNewsBySina sina = new GetNewsBySina();
+				GetNewsBySohu sohu = new GetNewsBySohu();
+				GetNewsBy360 new3 = new GetNewsBy360();
 				try {																
 						gnbk.getNews();
 					    loadBaiduData("D:"+File.separator+"newsbaidu.txt");
-					    gnbs.getSosoNews();																																
-						wangyi.get163News();
-						sina.getnewsBySina();
-						sohu.getSohuNews();
-						new3.get360News();
-						loadNewsData("D:"+File.separator+"news.txt");
-						TestTimer tt = new TestTimer();
-						tt.useTimer();
+//					    gnbs.getSosoNews();																																
+	//					wangyi.get163News();
+//						sina.getnewsBySina();
+//						sohu.getSohuNews();
+//						new3.get360News();
+//   					loadNewsData("D:"+File.separator+"news.txt");
+//						TestTimer tt = new TestTimer();
+//						tt.useTimer();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

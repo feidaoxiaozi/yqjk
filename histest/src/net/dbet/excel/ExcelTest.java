@@ -25,7 +25,7 @@ public class ExcelTest {
 		//数据初始化
 		List<Report> al = new ArrayList<Report>();
 		con = db.getConn();
-	  	String sql = "select * from yqjk_report";
+	  	String sql = "select * from yqjk_report order by published_time desc";
 		try {
   			st = con.createStatement();
 			rs = st.executeQuery(sql);			
@@ -35,7 +35,7 @@ public class ExcelTest {
 			report.setTitle(rs.getString(2));
 			report.setUrl(rs.getString(3));
 			report.setResource(rs.getString(4));
-			report.setRoleId(rs.getInt(5));
+			report.setPublished_time(rs.getString(5));
 			al.add(report);
 			}
 		} catch (SQLException e) {

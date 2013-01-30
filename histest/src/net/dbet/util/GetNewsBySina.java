@@ -15,13 +15,13 @@ import org.jsoup.select.Elements;
 
 public class GetNewsBySina {
 	
-	public String getnewsBySina() throws IOException {
+	public String getnewsBySina() throws IOException {//static void main(String[] args) throws IOException {//
 		FileWriter out = new FileWriter(new File("D:"+File.separator+"news.txt"));
 		GetNewsByBaidu gnbb = new GetNewsByBaidu(); 
 		ArrayList<Yqjkxx> list = gnbb.getRoleName();
 		for(Yqjkxx y: list){			
-		for(int i=0;i<=40;i++){
-		 String url = "http://search.sina.com.cn/?q="+URLEncoder.encode(y.getRoleName(), "gb2312")+"&c=news&from=channel&page=2&pf=2131425489&ps=2132080888&dpc=i";
+		for(int i=0;i<=20;i++){
+		 String url = "http://search.sina.com.cn/?q="+URLEncoder.encode(y.getRoleName(), "gb2312")+"&c=news&from=channel&page=6&pf=2131425489&ps=2132080888&dpc=i";
 		 Document doc = Jsoup.connect(url).get();
 		 Elements content = doc.select("div.r-info h2");
 		
@@ -31,6 +31,8 @@ public class GetNewsBySina {
 			 String href=null;
 			 String text=null;
 			 String spantext=null;
+			 String res = null;
+			 String time = null;
 			 for(Element item_a:a){				 
 				 href=item_a.attr("href");
 				 text=item_a.text();
@@ -40,15 +42,29 @@ public class GetNewsBySina {
 			 }
 			 for(Element item_span:span){				 
 				 spantext=item_span.text();
-				 System.out.println(spantext);
+				 String[] resAtm = spantext.split("\\s");
+				 if(resAtm.length==1){
+					 res = resAtm[0]; 
+				 }
+				 if(resAtm.length==2){
+					 res = resAtm[0];
+					 time = resAtm[1]; 
+				 }
+				
 			 }
-             out.write(text+"@"+href+"$"+spantext+"#"+"\r\n");
+             out.write(text+"@"+href+"$"+" "+"#"+spantext+"&"+"\r\n");
 //			 out.write(text);
 //			 out.write(href);
 //			 out.write(spantext);
 		 }
 		 try {
-			Thread.sleep(1000);
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			Thread.sleep(10000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,9 +1,11 @@
 package net.dbet.yqjk;
+import java.util.Date;
+
 import net.dbet.excel.ExcelAnnotation;
 
 public class Report {
 	@SuppressWarnings("unused")
-	@ExcelAnnotation(name = "ID")
+	@ExcelAnnotation(name = "新闻ID")
 	private int reportId;
 	
 	//private String type;
@@ -14,10 +16,10 @@ public class Report {
 	@ExcelAnnotation(name = "URL")
 	private String url;
 	@SuppressWarnings("unused")
-	@ExcelAnnotation(name = "新闻来源和时间")
+	@ExcelAnnotation(name = "新闻来源")
 	private String resource;
 	@SuppressWarnings("unused")
-	@ExcelAnnotation(name = "任务ID")
+	@ExcelAnnotation(name = "时间")
 	//private String published_time; 
 	
 //	private int reprinted_volume;
@@ -33,7 +35,7 @@ public class Report {
 	
 //	private String engineName;
 //	
-	private int roleId;
+	private String published_time;
 
 //	public Report(int reportId, String title, String url, String resource) {
 //		super();
@@ -107,6 +109,16 @@ public class Report {
 		this.url = url;
 	}
 
+	public String getPublished_time() {
+		return published_time;
+	}
+
+	public void setPublished_time(String published_time) {
+		this.published_time = published_time;
+	}
+
+
+
 //	public String getAuthor() {
 //		return author;
 //	}
@@ -123,22 +135,8 @@ public class Report {
 //		this.engineName = engineName;
 //	}
 //
-	public int getRoleId() {
-		return roleId;
-	}
 
-	public void setRoleId(int roleId) {
-		this.roleId = roleId;
-	}
 
-//	public String getPublished_time() {
-//		return published_time;
-//	}
-//
-//	public void setPublished_time(String published_time) {
-//		this.published_time = published_time;
-//	}
-//
 //	public void setSeach_time(String seach_time) {
 //		this.seach_time = seach_time;
 //	}

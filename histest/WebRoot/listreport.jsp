@@ -116,10 +116,10 @@ for(i=0;i<cs.length;i++){
        
         <td width="10%" height="30" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">标题</span></div></td>
         <td width="12%" height="30" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">URL</span></div></td>  
-        <td width="10%" height="30" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">来源和时间</span></div></td>
-         <!--
+        <td width="10%" height="30" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">来源</span></div></td>
+        
         <td width="10%" height="30" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">发表时间</span></div></td>        
-               
+           <!--     
         <td width="10%" height="30" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">搜素时间</span></div></td>
    
          <td width="5%" height="30" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">类型</span></div></td>
@@ -137,9 +137,9 @@ for(i=0;i<cs.length;i++){
                    <td height="30" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><s:property value="#report.title"/></div></td>
                    <td height="30" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><s:property value="#report.url"/></div></td>                   
                    <td height="30" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><s:property value="#report.resource"/></div></td>                   
-                   <!--  
+                   
                    <td height="30" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><s:property value="#report.published_time"/></div></td>                  
-                    
+                     <!-- 
                     <td height="30" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><s:property value="#report.seach_time"/></div></td>
                         <td><s:hidden value="report.reportId"/></td>
                    <td height="30" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><s:property value="#report.type"/></div></td>                    
